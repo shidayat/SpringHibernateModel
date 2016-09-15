@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabaRugi" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="date" class="java.util.Date"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\ProjectJava\\SpringHib-Model\\src\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<field name="namaGL" class="java.lang.String"/>
+	<field name="subGrupGL" class="java.lang.String"/>
+	<field name="namaCostCenter" class="java.lang.String"/>
+	<field name="actualLRBulanIni" class="java.math.BigDecimal"/>
+	<field name="actualLRTahunIni" class="java.math.BigDecimal"/>
+	<variable name="namaSubGrupGL" class="java.lang.String">
+		<variableExpression><![CDATA[$F{subGrupGL}]]></variableExpression>
+	</variable>
+	<variable name="namaCC" class="java.lang.String">
+		<variableExpression><![CDATA[$F{namaCostCenter}]]></variableExpression>
+	</variable>
+	<variable name="sumActualMTD_subGrup" class="java.math.BigDecimal" resetType="Group" resetGroup="SubGrupLabaRugi" calculation="Sum">
+		<variableExpression><![CDATA[$F{actualLRBulanIni}]]></variableExpression>
+	</variable>
+	<variable name="sumActualYTD_subGrup" class="java.math.BigDecimal" resetType="Group" resetGroup="SubGrupLabaRugi" calculation="Sum">
+		<variableExpression><![CDATA[$F{actualLRTahunIni}]]></variableExpression>
+	</variable>
+	<variable name="actualLRBulanIni_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{actualLRBulanIni}]]></variableExpression>
+	</variable>
+	<variable name="actualLRTahunIni_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{actualLRTahunIni}]]></variableExpression>
+	</variable>
+	<group name="SubGrupLabaRugi">
+		<groupExpression><![CDATA[$F{subGrupGL}]]></groupExpression>
+		<groupHeader>
+			<band height="26">
+				<textField>
+					<reportElement x="0" y="0" width="152" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{subGrupGL}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="333" y="0" width="111" height="20"/>
+					<box rightPadding="2"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumActualMTD_subGrup}.negate()]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="444" y="0" width="109" height="20"/>
+					<box rightPadding="2"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumActualYTD_subGrup}.negate()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="103" y="0" width="141" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{subGrupGL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="31" y="0" width="72" height="20"/>
+					<textElement/>
+					<text><![CDATA[Sub Total]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="274" height="33"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Laporan Laba Rugi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="333" y="24" width="85" height="22"/>
+				<textElement/>
+				<text><![CDATA[periode:]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="428" y="26" width="125" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="32" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="61" y="0" width="111" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nama Akun GL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="20"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Actual Bulan Ini]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="20"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Actual Tahun Ini]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="61" height="20"/>
+				<textElement/>
+				<text><![CDATA[Grup ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="-2" y="21" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="31" y="1" width="141" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{namaGL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="333" y="0" width="111" height="20"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actualLRBulanIni}.negate()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="444" y="0" width="111" height="20"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{actualLRTahunIni}.negate()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="49" splitType="Stretch">
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="333" y="0" width="111" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{actualLRBulanIni_1}.negate()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="444" y="0" width="109" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{actualLRTahunIni_1}.negate()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="103" y="0" width="141" height="20"/>
+				<textElement/>
+				<text><![CDATA[Total LABA (RUGI)]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

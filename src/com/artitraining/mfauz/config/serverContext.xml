@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : serverContext.xml
+    Created on : October 2, 2013, 3:29 PM
+    Author     : Sarip
+    Description:
+        Purpose of the document follows.
+-->
+     
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+<!-- dibawah ini digreykan diganti dg instansiasi HTTPserver nya via tomcat app server  -->     
+<!-- instansiasi Sun HttpServer dalam JRE 6.  -->   
+<!--    <bean class="org.springframework.remoting.support.SimpleHttpServerFactoryBean">
+        <property name="contexts">
+            <map>
+                 <entry key="/AppService" value-ref="appServiceHttpInvoker"/>
+            </map>
+        </property>
+        <property name="port" value="9090"/>
+    </bean>-->
+     
+<!--  publish service dg protokol HttpInvoker bukan yg Simple lagi. nama bean disini hrs = 
+      nama servlet di web.xml -->
+      
+    <bean id="appServiceHttpInvoker"
+          class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter"
+          p:service-ref="appService"
+          p:serviceInterface="com.artitraining.mfauz.service.AppService"
+        />
+
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : remote-ctx.xml
+    Created on : April 12, 2014, 10:44 PM
+    Author     : Endy
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="appServiceTarget" class="com.artitraining.mfauz.service.impl.AppServiceImpl"/>
+
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">        
+        <property name="serviceName" value="AppRmiService"/>
+        <property name="service" ref="appServiceTarget"/>
+        <property name="serviceInterface" value="com.artitraining.mfauz.service.AppService"/>  
+        <property name="registryPort" value="9090"/>
+    </bean>
+</beans>
